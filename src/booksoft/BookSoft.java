@@ -42,6 +42,17 @@ public class BookSoft {
                 
     }
     
+    public void menu3()
+    {
+        System.out.println("GESTION DE PRESTAMOS");
+        System.out.println("---------------------------------");
+        System.out.println("(1) Prestar Libro");
+        System.out.println("(2) Devolver Libro");
+        System.out.println("(3) Libros Prestados");
+        System.out.println("(4) Salir");
+                
+    }
+    
     public void ingresar()
     {
         limpiar();
@@ -301,7 +312,33 @@ public class BookSoft {
             
         }
         
-
+    while(op==2)
+        {
+            nuevo.limpiar();
+            nuevo.menu3();
+            
+            int op3=teclado.nextInt();
+            
+            switch(op3)
+            {
+                case 1:
+                    //nuevo.prestar();
+                    break;
+                case 2:
+                    //nuevo.devolver();
+                    break;
+                case 3:
+                    //nuevo.libros();
+                    break;
+                case 4:
+                    op=0;
+                    break;
+                default:
+                    op=0;
+                    break;    
+            }
+            
+        }
         
 
         
