@@ -16,12 +16,6 @@ public class BookSoft {
     private ArrayList<persona> prestamistas = new ArrayList<persona>();
     private Scanner teclado=new Scanner(System.in);
     
-    public void iniciar()
-    {
-        ArrayList<libro> reg_libros = new ArrayList<libro>();  
-      
-    }
-    
     public void menu1()
     {
         System.out.println("REGISTRO BIBLIOTECA MUNICIPAL");
@@ -55,7 +49,7 @@ public class BookSoft {
                 
     }
     
-    public libro parche()
+    public libro regis()
     {
         libro ingresado;
         ingresado=new libro();
@@ -113,7 +107,7 @@ public class BookSoft {
         System.out.println("Ingresar Libro");
         System.out.println("---------------------------------");
         
-        libro ingresado=parche();
+        libro ingresado=regis();
         String name=ingresado.getNombre();
                 
         registro.add(ingresado);
@@ -125,7 +119,7 @@ public class BookSoft {
         limpiar();
         System.out.println("Nueva informacion Libro");
         
-        libro ingresado=parche();
+        libro ingresado=regis();
         String name=ingresado.getNombre();
                 
         registro.add(pos,ingresado);
@@ -167,7 +161,7 @@ public class BookSoft {
         
          if(registro.isEmpty())
         {
-             System.out.print("El registro es vacio");
+             System.out.print("El registro esta vacio");
         }
          else
           {
@@ -330,8 +324,6 @@ public class BookSoft {
         BookSoft nuevo;
         nuevo=new BookSoft();
         Scanner teclado=new Scanner(System.in);
-        
-        nuevo.iniciar();
         
         int opg=0;
         while(opg==0)
