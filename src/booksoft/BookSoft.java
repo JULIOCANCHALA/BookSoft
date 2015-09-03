@@ -114,7 +114,7 @@ public class BookSoft {
         names.add(name);    
     }
     
-        public void ingresar2(int pos)
+    public void ingresar2(int pos)
     {
         limpiar();
         System.out.println("Nueva informacion Libro");
