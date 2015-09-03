@@ -1,8 +1,12 @@
+package booksoft;
+
 /**
  *
  * @author Julio
  */
 public class persona {
+    
+    private String cedula;
 
     public String getCedula() {
         return cedula;
@@ -11,7 +15,7 @@ public class persona {
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
-    private String cedula;
+    
     
     
 }

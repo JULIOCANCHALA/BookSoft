@@ -12,6 +12,8 @@ public class BookSoft {
     
     private ArrayList<libro> registro = new ArrayList<libro>();
     private ArrayList<String> names = new ArrayList<String>();
+    private ArrayList<String> prestados = new ArrayList<String>();
+    private ArrayList<persona> prestamistas = new ArrayList<persona>();
     private Scanner teclado=new Scanner(System.in);
     
     public void iniciar()
@@ -53,19 +55,15 @@ public class BookSoft {
                 
     }
     
-    public void ingresar()
+    public libro parche()
     {
-        limpiar();
-        System.out.println("Ingresar Libro");
-        System.out.println("---------------------------------");
-        
         libro ingresado;
         ingresado=new libro();
         
-        System.out.print("Nombre: ");        
+        System.out.print("Nombre: "); 
         String name=teclado.next();
         ingresado.setNombre(name);
-        
+               
         System.out.print("Autor: ");        
         ingresado.setAutor(teclado.next());
         
@@ -106,8 +104,18 @@ public class BookSoft {
                 ingresado.setArea("Null");
                 break;
         }
-
+        return ingresado;
+    }
+    
+    public void ingresar()
+    {
+        limpiar();
+        System.out.println("Ingresar Libro");
+        System.out.println("---------------------------------");
         
+        libro ingresado=parche();
+        String name=ingresado.getNombre();
+                
         registro.add(ingresado);
         names.add(name);    
     }
@@ -117,55 +125,9 @@ public class BookSoft {
         limpiar();
         System.out.println("Nueva informacion Libro");
         
-        libro ingresado;
-        ingresado=new libro();
-        
-        System.out.print("Nombre: ");        
-        String name=teclado.next();
-        ingresado.setNombre(name);
-        
-        System.out.print("Autor: ");        
-        ingresado.setAutor(teclado.next());
-        
-        System.out.print("Año de publicacion: ");        
-        ingresado.setAño_publicacion(teclado.nextInt());
-        
-        System.out.print("Codigo: ");        
-        ingresado.setCodigo(teclado.nextInt());
-        
-        System.out.print("Cantidad: ");        
-        ingresado.setCantidad(teclado.nextInt());
-        
-        System.out.print("Area: ");        
-        System.out.println("(1)Quimica (2)Fisica (3)Tengologia (4)Calculo (5)Programacion");        
-        
-        int op=teclado.nextInt();
-        
-        switch(op)
-        {
-            case 1:
-                ingresado.setArea("Quimica");
-                break;
-            case 2:
-                ingresado.setArea("Fisica");
-                break;
-            case 3:
-                ingresado.setArea("Tegnologia");
-                break;
-            case 4:
-                ingresado.setArea("Calculo");
-                break;
-            case 5:
-                ingresado.setArea("Programacion");
-                break;
-            default:
-                System.out.println("No ingresaste una Area valida");
-                System.out.println("Este libro requiere Actualizar");
-                ingresado.setArea("Null");
-                break;
-        }
-
-        
+        libro ingresado=parche();
+        String name=ingresado.getNombre();
+                
         registro.add(pos,ingresado);
         names.add(pos,name);    
     }
@@ -224,11 +186,11 @@ public class BookSoft {
     
     public void limpiar()
     {
-        for ( int i=1;i<=4;i++) 
+        for ( int i=0;i<=2;i++) 
         System.out.println(" "); 
     }
     
-    public void buscar(){
+    public int buscar(){
         
         limpiar();
         
@@ -240,7 +202,8 @@ public class BookSoft {
         
         if(registro.isEmpty())
         {
-             System.out.print("El registro es vacio");
+             System.out.println("El registro esta vacio");
+             return 0;
         }
          else
           {
@@ -250,27 +213,67 @@ public class BookSoft {
             int pos=names.indexOf(nom_busq);
             
             libro librobusq=registro.get(pos);
+            System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+            System.out.println("Nombre: "+librobusq.getNombre());
+            System.out.println("Autor: "+librobusq.getAutor());
+            System.out.println("Año de publicacion: "+librobusq.getAño_publicacion());
+            System.out.println("Codigo: "+librobusq.getCodigo());
+            System.out.println("Cantidad: "+librobusq.getCantidad());
+            System.out.println("Area: "+librobusq.getArea());
+            System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
             
-            System.out.println(librobusq.getNombre());
-            System.out.println(librobusq.getAutor());
-            System.out.println(librobusq.getAño_publicacion());
-            System.out.println(librobusq.getCodigo());
-            System.out.println(librobusq.getCantidad());
-            System.out.println(librobusq.getArea());
+            return pos+1;
             
             }
                 else
                 {
-                   System.out.print("El libro no esta en registro");
+                   System.out.println("El libro no esta en registro");
+                   return 0;
                  }
          }
     }
 
     public void prestarlibro(){
         
-        buscar();
-        System.out.print("Ingrese la ceulada: ");
-   
+        int pos=buscar();
+        
+        switch(pos)
+        {
+            case 0:
+                System.out.println("El libro no encontrado");
+                break;
+            default:
+                System.out.println("El libro encontrado");
+                
+                    libro libropre=registro.get(pos-1);
+                    String nombre=libropre.getNombre();
+                    int cantidad=libropre.getCantidad();
+
+                    if (cantidad>0)
+                    {
+                    System.out.println("El libro esta en la posicion: "+pos);
+
+                    System.out.print("Ingrese la cedula: ");
+
+                    persona ingre;
+                    ingre=new persona();        
+                    String ced=teclado.next();        
+                    ingre.setCedula(ced);
+
+                    libropre.setCantidad(libropre.getCantidad()-1);
+
+                    prestamistas.add(ingre);
+                    prestados.add(nombre);
+
+                    }
+
+                    else{
+                        System.out.println("No hay existencias");
+                    }
+
+                break;
+            
+        }
     }
 
     public static void main(String[] args) {
@@ -280,6 +283,11 @@ public class BookSoft {
         Scanner teclado=new Scanner(System.in);
         
         nuevo.iniciar();
+        
+        int opg=0;
+        while(opg==0)
+        {
+
         nuevo.menu1();
         int op=teclado.nextInt();
         while(op==1)
@@ -306,7 +314,7 @@ public class BookSoft {
                     op=0;
                     break;
                 default:
-                    op=0;
+                    System.out.println("Opcion incorrecta");
                     break;    
             }
             
@@ -322,7 +330,7 @@ public class BookSoft {
             switch(op3)
             {
                 case 1:
-                    //nuevo.prestar();
+                    nuevo.prestarlibro();
                     break;
                 case 2:
                     //nuevo.devolver();
@@ -334,14 +342,18 @@ public class BookSoft {
                     op=0;
                     break;
                 default:
-                    op=0;
+                    System.out.println("Opcion incorrecta");
                     break;    
             }
             
         }
-        
+    
+        if(op==3)
+        {
+        opg=1;
+         }
 
         
+        }
     }
-    
 }
