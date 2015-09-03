@@ -196,7 +196,7 @@ public class BookSoft {
         
         System.out.println("Buscar Libro");
         System.out.println("---------------------------------");
-        System.out.print("Ingresa el nombre del libro a buscar: ");
+        System.out.print("Ingresa el nombre del libro: ");
         
         String nom_busq=teclado.next();
         
@@ -268,11 +268,60 @@ public class BookSoft {
                     }
 
                     else{
-                        System.out.println("No hay existencias");
+                        System.out.println("No hay existencias en el momento");
                     }
 
                 break;
             
+        }
+    }
+    
+    public void devolverlibro()
+    {
+        System.out.println("Buscar Libro Prestado");
+        System.out.println("---------------------------------");
+        System.out.print("Ingresa el nombre del libro: ");
+        
+        String nom_busq=teclado.next();
+        
+        if(prestados.isEmpty())
+        {
+             System.out.println("El registro esta vacio");
+             
+        }
+         else
+          {
+            
+            if(prestados.contains(nom_busq))
+            {              
+                System.out.println("El libro esta en registro");
+                int pos=prestados.indexOf(nom_busq);
+                persona pres=prestamistas.get(pos);
+                System.out.println("Solicitado por C.C :" + pres.getCedula());
+                
+                prestamistas.remove(pos);
+                prestados.remove(pos);
+                
+                int pos2=names.indexOf(nom_busq);                          
+                libro librodev=registro.get(pos2);                
+                librodev.setCantidad(librodev.getCantidad()+1);
+                
+            }
+            else
+            {
+                System.out.println("El libro no esta en registro");                  
+            }
+          }
+    }
+    
+    public void listarprestados()
+    {
+        for(int i=0;i<prestados.size();i++)
+        {
+            String libro=prestados.get(i);
+            persona prest=prestamistas.get(i);            
+            String cedula=prest.getCedula();
+            System.out.println("Libro: '"+ libro + "' prestado a: " + cedula);
         }
     }
 
@@ -333,10 +382,10 @@ public class BookSoft {
                     nuevo.prestarlibro();
                     break;
                 case 2:
-                    //nuevo.devolver();
+                    nuevo.devolverlibro();
                     break;
                 case 3:
-                    //nuevo.libros();
+                    nuevo.listarprestados();
                     break;
                 case 4:
                     op=0;
