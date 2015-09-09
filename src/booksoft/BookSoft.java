@@ -13,7 +13,7 @@ public class BookSoft {
     private ArrayList<libro> registro = new ArrayList<libro>();
     private ArrayList<String> names = new ArrayList<String>();
     private ArrayList<String> prestados = new ArrayList<String>();
-    private ArrayList<persona> prestamistas = new ArrayList<persona>();
+    private ArrayList<persona> usuarios = new ArrayList<persona>();
     private Scanner teclado=new Scanner(System.in);
     
     public void menu1()
@@ -256,7 +256,7 @@ public class BookSoft {
 
                     libropre.setCantidad(libropre.getCantidad()-1);
 
-                    prestamistas.add(ingre);
+                    usuarios.add(ingre);
                     prestados.add(nombre);
 
                     }
@@ -290,10 +290,10 @@ public class BookSoft {
             {              
                 System.out.println("El libro esta en registro");
                 int pos=prestados.indexOf(nom_busq);
-                persona pres=prestamistas.get(pos);
+                persona pres=usuarios.get(pos);
                 System.out.println("Solicitado por C.C :" + pres.getCedula());
                 
-                prestamistas.remove(pos);
+                usuarios.remove(pos);
                 prestados.remove(pos);
                 
                 int pos2=names.indexOf(nom_busq);                          
@@ -313,7 +313,7 @@ public class BookSoft {
         for(int i=0;i<prestados.size();i++)
         {
             String libro=prestados.get(i);
-            persona prest=prestamistas.get(i);            
+            persona prest=usuarios.get(i);            
             String cedula=prest.getCedula();
             System.out.println("Libro: '"+ libro + "' prestado a: " + cedula);
         }
