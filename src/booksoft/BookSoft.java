@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Julio
+ * @author JulioCH
  */
 
 public class BookSoft {
